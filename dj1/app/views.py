@@ -48,7 +48,8 @@ def index_temp(request):
     if len(users) == 0:
         return HttpResponseRedirect('/login/')
     temp_value = users[0].temp
-    response = JsonResponse({'temp_value': str(temp_value)})
+    humi_value = users[0].humi
+    response = JsonResponse({'temp_value': str(temp_value),'humi_value':str(humi_value)})
     return response
 
 def logout(request):

@@ -7,3 +7,4 @@ class User(models.Model):
     led_statu     = models.BooleanField(default=False)
     curtain_statu = models.BooleanField(default=False)
     temp          = models.IntegerField(default=0)
+    humi          = models.IntegerField(default=0)    
