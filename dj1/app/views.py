@@ -21,18 +21,23 @@ def login(request):
             users = User.objects.filter(account=account,password=password)
             if users:
                 request.session['account'] = account
-                return HttpResponseRedirect('/index/')
+                return HttpResponse(u"login successful")
     uf = UserForm()
     return render(request,'login.html',{'uf':'uf'})
-
-def index(request):
+def index_led(request):
     account = request.session.get("account","anybody")
     users = User.objects.filter(account=account)
     if len(users) == 0:
         return HttpResponseRedirect('/login/')
     led_statu = users[0].led_statu
-    return render(request,'index.html',{'led_statu':led_statu})
-
+    return HttpResponse(str(led_statu))
+def index_curtain(request):
+    account = request.session.get("account","anybody")
+    users = User.objects.filter(account=account)
+    if len(users) == 0:
+        return HttpResponseRedirect('/login/')
+    curtain_statu = users[0].curtain_statu
+    return HttpResponse(str(curtain_statu))
 def logout(request):
     account = request.session.get("account","anybody")
     users = User.objects.filter(account=account)
@@ -67,7 +72,14 @@ def close_led(request):
     if len(users) == 0:
         return HttpResponseRedirect('/login/')
     User.objects.filter(account=account).update(led_statu=False)
-    return HttpResponseRedirect('/index/')
+    return HttpResponse(u"close_led")
+def close_curtain(request):
+    account = request.session.get("account","anybody")
+    users = User.objects.filter(account=account)
+    if len(users) == 0:
+        return HttpResponseRedirect('/login/')
+    User.objects.filter(account=account).update(curtain_statu=False)
+    return HttpResponse(u"close_curtain")
 
 def open_led(request):
     account = request.session.get("account","anybody")
@@ -75,4 +87,11 @@ def open_led(request):
     if len(users) == 0:
         return HttpResponseRedirect('/login/')
     User.objects.filter(account=account).update(led_statu=True)
-    return HttpResponseRedirect('/index/')
+    return HttpResponse(u"open_led")
+def open_curtain(request):
+    account = request.session.get("account","anybody")
+    users = User.objects.filter(account=account)
+    if len(users) == 0:
+        return HttpResponseRedirect('/login/')
+    User.objects.filter(account=account).update(curtain_statu=True)
+    return HttpResponse(u"open_curtain")

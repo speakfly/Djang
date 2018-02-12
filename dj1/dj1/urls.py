@@ -20,8 +20,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', app_views.login),
     path('logout/', app_views.logout),
-    path('index/', app_views.index),
+    path('index_led/', app_views.index_led),
+    path('index_curtain/', app_views.index_curtain),
     path('updatepassword/', app_views.updatepassword),
     path('close_led/', app_views.close_led),
     path('open_led/', app_views.open_led),
+    path('close_curtain/', app_views.close_curtain),
+    path('open_curtain/', app_views.open_curtain),
 ]
