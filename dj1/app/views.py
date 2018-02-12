@@ -22,9 +22,9 @@ def login(request):
             users = User.objects.filter(account=account,password=password)
             if users:
                 request.session['account'] = account
-                response = JsonResponse({'login_statu': 'successful'})
-                # return HttpResponse(u"login successful")
-                return response
+                # response = JsonResponse({'login_statu': 'successful'})
+                return HttpResponse(u"login successful")
+                # return response
     uf = UserForm()
     return render(request,'login.html',{'uf':'uf'})
 def index_led(request):
@@ -33,16 +33,14 @@ def index_led(request):
     if len(users) == 0:
         return HttpResponseRedirect('/login/')
     led_statu = users[0].led_statu
-    response = JsonResponse({'led_statu': str(led_statu)})
-    return response
+    return HttpResponse(str(led_statu))
 def index_curtain(request):
     account = request.session.get("account","anybody")
     users = User.objects.filter(account=account)
     if len(users) == 0:
         return HttpResponseRedirect('/login/')
     curtain_statu = users[0].curtain_statu
-    response = JsonResponse({'curtain_statu': str(curtain_statu)})
-    return response
+    return HttpResponse(str(curtain_statu))
 
 def index_temp(request):
     account = request.session.get("account","anybody")
@@ -59,8 +57,7 @@ def logout(request):
     if len(users) == 0:
         return HttpResponseRedirect('/login/')
     del request.session['account']
-    response = JsonResponse({'login_statu': 'false'})
-    return response
+    return HttpResponse(u'logout')
 
 def updatepassword(request):
     account = request.session.get("account","anybody")
@@ -88,16 +85,14 @@ def close_led(request):
     if len(users) == 0:
         return HttpResponseRedirect('/login/')
     User.objects.filter(account=account).update(led_statu=False)
-    response = JsonResponse({'action': 'close_led'})
-    return response
+    return HttpResponse(u'close_led')
 def close_curtain(request):
     account = request.session.get("account","anybody")
     users = User.objects.filter(account=account)
     if len(users) == 0:
         return HttpResponseRedirect('/login/')
     User.objects.filter(account=account).update(curtain_statu=False)
-    response = JsonResponse({'action': 'colse_curtain'})
-    return response
+    return HttpResponse(u'colse_curtain')
 
 def open_led(request):
     account = request.session.get("account","anybody")
@@ -105,13 +100,11 @@ def open_led(request):
     if len(users) == 0:
         return HttpResponseRedirect('/login/')
     User.objects.filter(account=account).update(led_statu=True)
-    response = JsonResponse({'action': "open_led"})
-    return response
+    return HttpResponse(u'open_led')
 def open_curtain(request):
     account = request.session.get("account","anybody")
     users = User.objects.filter(account=account)
     if len(users) == 0:
         return HttpResponseRedirect('/login/')
     User.objects.filter(account=account).update(curtain_statu=True)
-    response = JsonResponse({'action': 'open_curtain'})
-    return response
+    return HttpResponse(u'open_curtain')
