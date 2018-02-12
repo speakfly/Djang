@@ -27,4 +27,5 @@ urlpatterns = [
     path('open_led/', app_views.open_led),
     path('close_curtain/', app_views.close_curtain),
     path('open_curtain/', app_views.open_curtain),
+    path('index_temp/', app_views.index_temp),
 ]

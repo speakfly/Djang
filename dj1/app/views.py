@@ -43,6 +43,16 @@ def index_curtain(request):
     curtain_statu = users[0].curtain_statu
     response = JsonResponse({'curtain_statu': str(curtain_statu)})
     return response
+
+def index_temp(request):
+    account = request.session.get("account","anybody")
+    users = User.objects.filter(account=account)
+    if len(users) == 0:
+        return HttpResponseRedirect('/login/')
+    temp_value = users[0].temp
+    response = JsonResponse({'temp_value': str(temp_value)})
+    return response
+
 def logout(request):
     account = request.session.get("account","anybody")
     users = User.objects.filter(account=account)

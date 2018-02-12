@@ -6,3 +6,4 @@ class User(models.Model):
     password      = models.CharField(max_length = 20)
     led_statu     = models.BooleanField(default=False)
     curtain_statu = models.BooleanField(default=False)
+    temp          = models.IntegerField(default=0)
