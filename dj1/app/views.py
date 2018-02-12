@@ -24,7 +24,7 @@ def login(request):
                 request.session['account'] = account
                 response = JsonResponse({'login_statu': 'successful'})
                 # return HttpResponse(u"login successful")
-                return reponse
+                return response
     uf = UserForm()
     return render(request,'login.html',{'uf':'uf'})
 def index_led(request):
@@ -34,7 +34,7 @@ def index_led(request):
         return HttpResponseRedirect('/login/')
     led_statu = users[0].led_statu
     response = JsonResponse({'led_statu': str(led_statu)})
-    return reponse
+    return response
 def index_curtain(request):
     account = request.session.get("account","anybody")
     users = User.objects.filter(account=account)
@@ -42,7 +42,7 @@ def index_curtain(request):
         return HttpResponseRedirect('/login/')
     curtain_statu = users[0].curtain_statu
     response = JsonResponse({'curtain_statu': str(curtain_statu)})
-    return reponse
+    return response
 def logout(request):
     account = request.session.get("account","anybody")
     users = User.objects.filter(account=account)
@@ -50,7 +50,7 @@ def logout(request):
         return HttpResponseRedirect('/login/')
     del request.session['account']
     response = JsonResponse({'login_statu': 'false'})
-    return reponse
+    return response
 
 def updatepassword(request):
     account = request.session.get("account","anybody")
@@ -79,7 +79,7 @@ def close_led(request):
         return HttpResponseRedirect('/login/')
     User.objects.filter(account=account).update(led_statu=False)
     response = JsonResponse({'action': 'close_led'})
-    return reponse
+    return response
 def close_curtain(request):
     account = request.session.get("account","anybody")
     users = User.objects.filter(account=account)
@@ -87,7 +87,7 @@ def close_curtain(request):
         return HttpResponseRedirect('/login/')
     User.objects.filter(account=account).update(curtain_statu=False)
     response = JsonResponse({'action': 'colse_curtain'})
-    return reponse
+    return response
 
 def open_led(request):
     account = request.session.get("account","anybody")
@@ -96,7 +96,7 @@ def open_led(request):
         return HttpResponseRedirect('/login/')
     User.objects.filter(account=account).update(led_statu=True)
     response = JsonResponse({'action': "open_led"})
-    return reponse
+    return response
 def open_curtain(request):
     account = request.session.get("account","anybody")
     users = User.objects.filter(account=account)
@@ -104,4 +104,4 @@ def open_curtain(request):
         return HttpResponseRedirect('/login/')
     User.objects.filter(account=account).update(curtain_statu=True)
     response = JsonResponse({'action': 'open_curtain'})
-    return reponse
+    return response
