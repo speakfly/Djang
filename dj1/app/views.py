@@ -109,3 +109,4 @@ def open_curtain(request):
         return HttpResponseRedirect('/login/')
     User.objects.filter(account=account).update(curtain_statu=True)
     return HttpResponse(u'open_curtain')
+    
